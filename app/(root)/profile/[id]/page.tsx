@@ -82,7 +82,6 @@ const Page = async ({ params, searchParams }: URLProps) => {
       </div>
 
       <Stats
-        reputation={userInfo.reputation}
         totalQuestions={userInfo.totalQuestions}
         totalAnswers={userInfo.totalAnswers}
         badges={userInfo.badgeCounts}
