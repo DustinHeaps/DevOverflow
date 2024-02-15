@@ -6,6 +6,7 @@ export interface FilterProps {
 }
 
 export interface SidebarLink {
+  alt: string;
   imgURL: string;
   route: string;
   label: string;

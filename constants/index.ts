@@ -8,36 +8,43 @@ export const themes = [
 
 export const sidebarLinks: SidebarLink[] = [
   {
+    alt: "home",
     imgURL: "/assets/icons/home.svg",
     route: "/",
     label: "Home",
   },
   {
+    alt: "users",
     imgURL: "/assets/icons/users.svg",
     route: "/community",
     label: "Community",
   },
   {
+    alt: "collections",
     imgURL: "/assets/icons/star.svg",
     route: "/collection",
     label: "Collections",
   },
   {
+    alt: "jobs",
     imgURL: "/assets/icons/suitcase.svg",
     route: "/jobs",
     label: "Find Jobs",
   },
   {
+    alt: "tags",
     imgURL: "/assets/icons/tag.svg",
     route: "/tags",
     label: "Tags",
   },
   {
+    alt: "profile",
     imgURL: "/assets/icons/user.svg",
     route: "/profile",
     label: "Profile",
   },
   {
+    alt: "ask a question",
     imgURL: "/assets/icons/question.svg",
     route: "/ask-question",
     label: "Ask a question",

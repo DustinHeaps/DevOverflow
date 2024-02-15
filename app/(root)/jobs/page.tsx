@@ -1,4 +1,3 @@
-
 import JobCard from "@/components/cards/JobCard";
 import JobsFilter from "@/components/jobs/JobsFilter";
 import Pagination from "@/components/shared/Pagination";
@@ -6,6 +5,7 @@ import Pagination from "@/components/shared/Pagination";
 import { fetchCountries, fetchJobs, fetchLocation } from "@/actions/job.action";
 
 import { Job } from "@/types";
+import NoResult from "@/components/shared/NoResult";
 
 interface Props {
   searchParams: {
@@ -31,13 +31,13 @@ const Page = async ({ searchParams }: Props) => {
 
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900">Jobs</h1>
+      <h1 className='h1-bold text-dark100_light900'>Jobs</h1>
 
-      <div className="flex">
+      <div className='flex'>
         <JobsFilter countriesList={countries} />
       </div>
 
-      <section className="light-border mb-9 mt-11 flex flex-col gap-9 border-b pb-9">
+      <section data-testid="jobs-list" className='light-border mb-9 mt-11 flex flex-col gap-9 border-b pb-9'>
         {jobs?.length > 0 ? (
           jobs.map((job: Job) => {
             if (job.job_title && job.job_title.toLowerCase() !== "undefined")
@@ -46,13 +46,18 @@ const Page = async ({ searchParams }: Props) => {
             return null;
           })
         ) : (
-          <div className="paragraph-regular text-dark200_light800 w-full text-center">
-            Oops! We couldn&apos;t find any jobs at the moment. Please try again later
-          </div>
+          <NoResult
+            title='No Jobs Found'
+            description="We couldn't find any jobs matching your search"
+            // link="/jobs"
+            // linkTitle="Explore Jobs"
+          />
         )}
       </section>
 
-      {jobs?.length > 0 && <Pagination pageNumber={page} isNext={jobs.length === 10} />}
+      {jobs?.length > 0 && (
+        <Pagination pageNumber={page} isNext={jobs.length === 10} />
+      )}
     </>
   );
 };

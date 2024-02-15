@@ -54,7 +54,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
             height={18}
           />
           <div className='line-clamp-1 flex-1 text-left'>
-            <SelectValue placeholder='Select Location' />
+            <SelectValue aria-label='Select Location' placeholder='Select Location' />
           </div>
         </SelectTrigger>
 

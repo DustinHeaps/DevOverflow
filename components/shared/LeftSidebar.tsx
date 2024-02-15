@@ -29,6 +29,7 @@ const LeftSidebar = () => {
 
           return (
             <Link
+              
               href={item.route}
               key={item.label}
               className={`${
@@ -39,7 +40,7 @@ const LeftSidebar = () => {
             >
               <Image
                 src={item.imgURL}
-                alt={item.label}
+                alt={item.alt}
                 width={20}
                 height={20}
                 className={`${isActive ? "" : "invert-colors"}`}

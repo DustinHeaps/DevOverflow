@@ -53,3 +53,21 @@ test("Search for Users", async ({ page }) => {
     page.getByRole("heading", { name: "No users found" })
   ).toBeVisible();
 });
+
+test("Search for jobs", async ({ page }) => {
+  await page.goto("/jobs");
+
+  await page.getByPlaceholder("Job Title, Company, or").click();
+  await page.getByPlaceholder("Job Title, Company, or").fill("developer");
+
+  await page.goto("/jobs/?q=developer");
+  const jobsList = page.getByTestId("jobs-list");
+  await expect(jobsList).toHaveCount(1);
+
+  // testing empty state
+  await page.getByPlaceholder("Job Title, Company, or").fill("developerz");
+  await page.goto("/jobs/?q=developerz");
+  await expect(
+    page.getByRole("heading", { name: "No Jobs Found" })
+  ).toBeVisible();
+});
