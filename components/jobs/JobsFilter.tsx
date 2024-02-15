@@ -46,7 +46,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
       />
 
       <Select onValueChange={(value) => handleUpdateParams(value)}>
-        <SelectTrigger className='body-regular light-border background-light800_dark300 text-dark500_light700 line-clamp-1 flex min-h-[56px] items-center gap-3 border p-4 sm:max-w-[210px]'>
+        <SelectTrigger aria-label='Select Location' className='body-regular light-border background-light800_dark300 text-dark500_light700 line-clamp-1 flex min-h-[56px] items-center gap-3 border p-4 sm:max-w-[210px]'>
           <Image
             src='/assets/icons/carbon-location.svg'
             alt='location'
@@ -54,7 +54,7 @@ const JobsFilter = ({ countriesList }: JobsFilterProps) => {
             height={18}
           />
           <div className='line-clamp-1 flex-1 text-left'>
-            <SelectValue aria-label='Select Location' placeholder='Select Location' />
+            <SelectValue  placeholder='Select Location' />
           </div>
         </SelectTrigger>
 
