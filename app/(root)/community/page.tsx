@@ -4,8 +4,9 @@ import { UserFilters } from "@/constants/filters";
 import { getAllUsers } from "@/actions/user.action";
 import Link from "next/link";
 import UserCard from "@/components/cards/UserCard";
-import { SearchParamsProps } from '@/types';
-import Pagination from '@/components/shared/Pagination';
+import { SearchParamsProps } from "@/types";
+import Pagination from "@/components/shared/Pagination";
+import { Button } from '@/components/ui/button';
 
 const Page = async ({ searchParams }: SearchParamsProps) => {
   const result = await getAllUsers({
@@ -13,7 +14,6 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
   });
-
 
   return (
     <>
@@ -34,17 +34,18 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
         />
       </div>
 
-      <section className='mt-12 flex flex-wrap gap-4'>
+      <section data-testid='user-list' className='mt-12 flex flex-wrap gap-4'>
         {result.users.length > 0 ? (
           result.users.map((user) => {
-          // @ts-ignore
+           {/* @ts-ignore */}
             return <UserCard key={user._id} user={user} />;
           })
         ) : (
+
           <div className='paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center'>
-            <p>No users yet</p>
-            <Link href='/sign-up' className='mt-2 font-bold text-accent-blue'>
-              Join to be the first!
+            <h2 className='h2-bold text-dark200_light900'>No users found</h2>
+            <Link href='/sign-up' className='h4-bold mt-2 font-bold text-accent-blue'>
+              Join the community!
             </Link>
           </div>
         )}

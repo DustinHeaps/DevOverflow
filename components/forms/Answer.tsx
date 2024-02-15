@@ -18,6 +18,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import { createAnswer } from "@/actions/answer.action";
 import { usePathname } from "next/navigation";
+import { toast } from "../ui/use-toast";
 
 interface Props {
   question: string;
@@ -30,8 +31,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmittingAI, setSetIsSubmittingAI] = useState(false);
   const { mode } = useTheme();
-  const editorRef = useRef(null);
-
+  const editorRef = useRef<any>(null);
   const form = useForm<z.infer<typeof AnswerSchema>>({
     resolver: zodResolver(AnswerSchema),
     defaultValues: {
@@ -58,11 +58,22 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         editor.setContent("");
       }
     } catch (error) {
+      toast({
+        title: `Error submitting answer ⚠️`,
+        variant: "destructive",
+      });
       console.log(error);
     } finally {
       setIsSubmitting(false);
+
+      toast({
+        title: `Answer
+         submitted successfully 🎉`,
+        variant: "default",
+      });
     }
   };
+
   const generateAIAnswer = async () => {
     if (!authorId) return;
 
@@ -138,7 +149,6 @@ const Answer = ({ question, questionId, authorId }: Props) => {
                   <Editor
                     apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                     onInit={(evt, editor) => {
-                      // @ts-ignore
                       editorRef.current = editor;
                     }}
                     onBlur={field.onBlur}

@@ -35,7 +35,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
         />
       </div>
 
-      <section className='mt-12 flex flex-wrap gap-4'>
+      <section data-testid="tag-list" className='mt-12 flex flex-wrap gap-4'>
         {result.tags.length > 0 ? (
           result.tags.map((tag) => (
             <Link
@@ -49,6 +49,12 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                     {tag.name}
                   </p>
                 </div>
+
+                {/* {tag.description && (
+                  <p className="small-regular text-dark500_light700 mt-4">
+                    {tag.description}
+                  </p>
+                )} */}
 
                 <p className='small-medium text-dark400_light500 mt-3.5'>
                   <span className='body-semibold primary-text-gradient mr-2.5'>

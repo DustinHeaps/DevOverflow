@@ -101,7 +101,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             value='top-posts'
             className='mt-5 flex w-full flex-col gap-6'
           >
-              {/* @ts-ignore */}
+            {/* @ts-ignore */}
             <QuestionsTab
               searchParams={searchParams}
               userId={userInfo.user._id}
@@ -109,7 +109,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
             />
           </TabsContent>
           <TabsContent value='answers' className='flex w-full flex-col gap-6'>
-              {/* @ts-ignore */}
+            {/* @ts-ignore */}
             <AnswersTab
               searchParams={searchParams}
               userId={userInfo.user._id}

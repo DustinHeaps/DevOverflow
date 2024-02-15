@@ -8,26 +8,28 @@ import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils'
 import GlobalResult from './GlobalSearchResult'
 
 const GlobalSearch = () => {
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const searchContainerRef = useRef(null)
+  const searchContainerRef = useRef<HTMLInputElement | null>(null);
 
   const query = searchParams.get('q');
 
-  const [search, setSearch] = useState(query || '');
+  const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleOutsideClick = (event: any) => {
-      if(searchContainerRef.current &&
-      // @ts-ignore
-      !searchContainerRef.current.contains(event.target)
+    const handleOutsideClick = (e: any) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(e.target)
       ) {
         setIsOpen(false);
-        setSearch('')
+        setSearch("");
       }
-    }
+    };
+
 
     setIsOpen(false);
 

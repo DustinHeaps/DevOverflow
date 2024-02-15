@@ -42,7 +42,7 @@ const Votes = ({
     });
 
     return toast({
-      title: `Question ${ !hasSaved ? "Saved in" : "Removed from" } your collection`,
+      title: `Question ${ !hasSaved ? "saved in" : "removed from" } your collection`,
       variant: !hasSaved ? "default" : "destructive",
     });
   };
@@ -118,6 +118,7 @@ const Votes = ({
       <div className='flex-center gap-2.5'>
         <div className='flex-center gap-1.5'>
           <Image
+            id='upvote'
             src={
               hasupVoted
                 ? "/assets/icons/upvoted.svg"
@@ -131,7 +132,7 @@ const Votes = ({
           />
 
           <div className='flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1'>
-            <p className='subtle-medium text-dark400_light900'>
+            <p id='upvotes' className='subtle-medium text-dark400_light900'>
               {formatAndDivideNumber(upvotes)}
             </p>
           </div>
@@ -139,6 +140,7 @@ const Votes = ({
 
         <div className='flex-center gap-1.5'>
           <Image
+            id='downvote'
             src={
               hasdownVoted
                 ? "/assets/icons/downvoted.svg"
@@ -152,7 +154,7 @@ const Votes = ({
           />
 
           <div className='flex-center background-light700_dark400 min-w-[18px] rounded-sm p-1'>
-            <p className='subtle-medium text-dark400_light900'>
+            <p id='downvotes' className='subtle-medium text-dark400_light900'>
               {formatAndDivideNumber(downvotes)}
             </p>
           </div>
@@ -161,6 +163,7 @@ const Votes = ({
 
       {type === "Question" && (
         <Image
+          id='saved'
           src={
             hasSaved
               ? "/assets/icons/star-filled.svg"

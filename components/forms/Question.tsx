@@ -31,7 +31,7 @@ interface Props {
 
 const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   const { mode } = useTheme();
-  const editorRef = useRef(null);
+  const editorRef = useRef<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -72,18 +72,26 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           author: JSON.parse(mongoUserId),
           path: pathname,
         });
-        
-        // return toast({
-        //   title: `Question ${ !hasSaved ? "Saved in" : "Removed from" } your collection`,
-        //   variant: !hasSaved ? "default" : "destructive",
-        // });
+
         router.push('/');
       }
 
     } catch (error) {
-      
+        toast({
+        title: `Error ${type === "Edit" ? "editing" : "posting"} question ⚠️`,
+        variant: "destructive",
+      });
+
+      console.error(error);
     } finally {
       setIsSubmitting(false);
+
+      toast({
+        title: `Question ${
+          type === "Edit" ? "edited" : "posted"
+        } successfully 🎉`,
+        variant: "default",
+      });
     }
   }
 
@@ -143,16 +151,14 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
         <FormField
           control={form.control}
           name="explanation"
+          data-testid='explanation'
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="paragraph-semibold text-dark400_light800">Detailed explanation of your problem <span className="text-primary-500">*</span></FormLabel>
               <FormControl className="mt-3.5">
               <Editor
                 apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
-                onInit={(evt, editor) => {
-                  // @ts-ignore
-                  editorRef.current = editor
-                }}
+                onInit={(_evt, editor) => editorRef.current = editor}
                 onBlur={field.onBlur}
                 onEditorChange={(content) => field.onChange(content)}
                 initialValue={parsedQuestionDetails?.content || ''}

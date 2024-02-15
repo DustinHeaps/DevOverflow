@@ -1,5 +1,10 @@
 import { BADGE_CRITERIA } from "@/constants";
 
+export interface FilterProps {
+  name: string;
+  value: string;
+}
+
 export interface SidebarLink {
   imgURL: string;
   route: string;
@@ -18,6 +23,7 @@ export interface Job {
   job_city?: string;
   job_state?: string;
   job_country?: string;
+  job_posted_at_datetime_utc?: string
 }
 
 export interface Country {

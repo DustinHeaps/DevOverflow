@@ -96,6 +96,7 @@ const Page = async ({ params, searchParams }: any) => {
       </div>
       {/* @ts-ignore */}
       <AllAnswers 
+        data-testid="answers-list"
         questionId={result._id}
         userId={mongoUser._id}
         totalAnswers={result.answers.length}

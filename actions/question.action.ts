@@ -142,7 +142,7 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
     const { questionId, userId, hasupVoted, hasdownVoted, path } = params;
 
     let updateQuery = {};
-  
+
     if (hasupVoted) {
       updateQuery = { $pull: { upvotes: userId } };
     } else if (hasdownVoted) {
@@ -187,32 +187,34 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
 
     let updateQuery = {};
 
-    if(hasdownVoted) {
-      updateQuery = { $pull: { downvotes: userId }}
-      console.log(updateQuery)
+    if (hasdownVoted) {
+      updateQuery = { $pull: { downvotes: userId } };
+      console.log(updateQuery);
     } else if (hasupVoted) {
-      updateQuery = { 
+      updateQuery = {
         $pull: { upvotes: userId },
-        $push: { downvotes: userId }
-      }
+        $push: { downvotes: userId },
+      };
     } else {
-      updateQuery = { $addToSet: { downvotes: userId }}
+      updateQuery = { $addToSet: { downvotes: userId } };
     }
 
-    const question = await Question.findByIdAndUpdate(questionId, updateQuery, { new: true });
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
 
-    if(!question) {
+    if (!question) {
       throw new Error("Question not found");
     }
 
     // Increment author's reputation
-    await User.findByIdAndUpdate(userId, { 
-      $inc: { reputation: hasdownVoted ? -2 : 2 }
-    })
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasdownVoted ? -2 : 2 },
+    });
 
-    await User.findByIdAndUpdate(question.author, { 
-      $inc: { reputation: hasdownVoted ? -10 : 10 }
-    })
+    await User.findByIdAndUpdate(question.author, {
+      $inc: { reputation: hasdownVoted ? -10 : 10 },
+    });
 
     revalidatePath(path);
   } catch (error) {
@@ -220,7 +222,6 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
     throw error;
   }
 }
-
 
 export async function deleteQuestion(params: DeleteQuestionParams) {
   try {
@@ -310,7 +311,6 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
 
     // Get distinct tag IDs from user's interactions
     const distinctUserTagIds = [
-      // @ts-ignore
       ...new Set(userTags.map((tag: any) => tag._id)),
     ];
 
